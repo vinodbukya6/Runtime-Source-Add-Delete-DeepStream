@@ -294,6 +294,8 @@ def bus_call(bus, message, loop):
                 g_eos_list[stream_id] = True
     return True
 
+##############################################################################
+
 def main_add_del_stream(args):
     global g_num_sources
     global g_source_bin_list
@@ -549,7 +551,9 @@ def main_add_del_stream(args):
     # cleanup
     print("Exiting app\n")
     pipeline.set_state(Gst.State.NULL)
-    return "Success"
+    return "Inference Pipeline Finished"
+
+##############################################################################
 
 # pause pipeline and delete streaming source
 def del_streaming_src(del_src_index):
@@ -562,7 +566,9 @@ def del_streaming_src(del_src_index):
     # using idle_add(adds a function) delete the stream 
     GObject.idle_add(delete_sources, g_source_bin_list)
     pipeline.set_state(Gst.State.PLAYING)
-    return "Success"
+    return "Deleted Streaming Source"
+
+##############################################################################
 
 # pause pipeline and add new stream
 def add_new_src(streams_in):
@@ -607,4 +613,4 @@ def add_new_src(streams_in):
         print("All sources stopped quitting")
         return False
     
-    return "Success"
+    return "Added New Stream"
